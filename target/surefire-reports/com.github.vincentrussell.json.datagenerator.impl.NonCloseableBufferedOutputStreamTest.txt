@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.github.vincentrussell.json.datagenerator.impl.NonCloseableBufferedOutputStreamTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.809 s -- in com.github.vincentrussell.json.datagenerator.impl.NonCloseableBufferedOutputStreamTest
