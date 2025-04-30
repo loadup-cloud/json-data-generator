@@ -1,0 +1,31 @@
+-------------------------------------------------------------------------------
+Test set: com.github.vincentrussell.json.datagenerator.functions.impl.DefaultFunctionsTest
+-------------------------------------------------------------------------------
+Tests run: 102, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.557 s <<< FAILURE! -- in com.github.vincentrussell.json.datagenerator.functions.impl.DefaultFunctionsTest
+com.github.vincentrussell.json.datagenerator.functions.impl.DefaultFunctionsTest.resetIndexSpecifiedNameNotFound -- Time elapsed: 0.005 s <<< ERROR!
+java.lang.IllegalStateException: could not find index with name name1
+	at com.github.vincentrussell.json.datagenerator.functions.impl.ResetIndex.getIndexHolder(ResetIndex.java:76)
+	at com.github.vincentrussell.json.datagenerator.functions.impl.ResetIndex.resetIndex(ResetIndex.java:65)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.github.vincentrussell.json.datagenerator.functions.FunctionRegistry.executeMethod(FunctionRegistry.java:264)
+	at com.github.vincentrussell.json.datagenerator.functions.FunctionRegistry.executeFunction(FunctionRegistry.java:254)
+	at com.github.vincentrussell.json.datagenerator.functions.impl.DefaultFunctionsTest.resetIndexSpecifiedNameNotFound(DefaultFunctionsTest.java:253)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+com.github.vincentrussell.json.datagenerator.functions.impl.DefaultFunctionsTest.resetIndexDefaultNotFound -- Time elapsed: 0.005 s <<< ERROR!
+java.lang.IllegalStateException: could not find index with name DEFAULT
+	at com.github.vincentrussell.json.datagenerator.functions.impl.ResetIndex.getIndexHolder(ResetIndex.java:76)
+	at com.github.vincentrussell.json.datagenerator.functions.impl.ResetIndex.resetIndex(ResetIndex.java:65)
+	at com.github.vincentrussell.json.datagenerator.functions.impl.ResetIndex.resetIndex(ResetIndex.java:55)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.github.vincentrussell.json.datagenerator.functions.FunctionRegistry.executeMethod(FunctionRegistry.java:264)
+	at com.github.vincentrussell.json.datagenerator.functions.FunctionRegistry.executeFunction(FunctionRegistry.java:254)
+	at com.github.vincentrussell.json.datagenerator.functions.impl.DefaultFunctionsTest.resetIndexDefaultNotFound(DefaultFunctionsTest.java:245)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+

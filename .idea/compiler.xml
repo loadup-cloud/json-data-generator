@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Annotation profile for json-data-generator" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.m2/repository_personal/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
+          <entry name="$USER_HOME$/.m2/repository_personal/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
+          <entry name="$USER_HOME$/.m2/repository_personal/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$USER_HOME$/.m2/repository_personal/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+          <entry name="$USER_HOME$/.m2/repository_personal/org/mapstruct/mapstruct-processor/1.6.3/mapstruct-processor-1.6.3.jar" />
+          <entry name="$USER_HOME$/.m2/repository_personal/org/mapstruct/mapstruct/1.6.3/mapstruct-1.6.3.jar" />
+          <entry name="$USER_HOME$/.m2/repository_personal/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$USER_HOME$/.m2/repository_personal/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
+        </processorPath>
+        <module name="json-data-generator" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
