@@ -12,10 +12,10 @@ package com.github.vincentrussell.json.datagenerator.parser;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,15 +29,16 @@ package com.github.vincentrussell.json.datagenerator.parser;
 import com.github.vincentrussell.json.datagenerator.functions.Function;
 import com.github.vincentrussell.json.datagenerator.functions.FunctionInvocation;
 import com.github.vincentrussell.json.datagenerator.functions.FunctionRegistry;
-import com.google.common.base.Charsets;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class FunctionJJTreeTest {
@@ -56,7 +57,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void testFunctionWithTwoStringsArgs() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(\"a\",\"b\")".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(\"a\",\"b\")".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         assertEquals("ab", result);
@@ -64,7 +65,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void testFunctionWithTwoNumbersArgs() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(1,23)".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(1,23)".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         assertEquals("123", result);
@@ -72,7 +73,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void testFunctionWithOneStringOneNumberArgs() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(\"a\",23)".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(\"a\",23)".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         assertEquals("a23", result);
@@ -80,7 +81,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void testFunctionWithOneStringOneFloatArgs() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(\"a\",21231.342342)".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(\"a\",21231.342342)".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         assertEquals("a21231.342342", result);
@@ -88,7 +89,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void testFunctionWithNoArgs() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-gender()".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-gender()".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         assertTrue("male".equals(result) || "female".equals(result));
@@ -96,7 +97,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void testFunctionWithArgsNested() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(\"a \",test-gender())".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(\"a \",test-gender())".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         assertTrue("a male".equals(result) || "a female".equals(result));
@@ -104,7 +105,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void testFunctionWithArgsMultipleNested() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(test-concat(\"a \",test-gender()),\" is cool\")".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-concat(test-concat(\"a \",test-gender()),\" is cool\")".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         assertTrue("a male is cool".equals(result) || "a female is cool".equals(result));
@@ -112,7 +113,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void canParseFloatingPointNumbers() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-floating(1.232,2.543)".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-floating(1.232,2.543)".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         Float flo = Float.valueOf(result);
@@ -121,7 +122,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void canParseNegativeFloatingPointNumbers() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-floating(-3.543,-2.543)".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-floating(-3.543,-2.543)".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         Float flo = Float.valueOf(result);
@@ -130,7 +131,7 @@ public class FunctionJJTreeTest {
 
     @Test
     public void canParseNegativeIntegers() throws ParseException, InvocationTargetException, IllegalAccessException {
-        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-integer(-20,-10)".getBytes()), Charsets.UTF_8);
+        FunctionParser functionParser = new FunctionParser(new ByteArrayInputStream("test-integer(-20,-10)".getBytes()), StandardCharsets.UTF_8.name());
         functionParser.setFunctionRegistry(functionRegistry);
         String result = functionParser.Parse();
         Integer integer = Integer.valueOf(result);

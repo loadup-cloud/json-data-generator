@@ -13,6 +13,8 @@ import com.github.vincentrussell.json.datagenerator.functions.FunctionRegistry;
 import com.google.common.base.Charsets;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.IllegalAccessException;
+import java.nio.charset.StandardCharsets;
+
 
 /** An Arithmetic Grammar. */
 public class FunctionParser {
@@ -26,7 +28,7 @@ public class FunctionParser {
   /** Main entry point. */
   public static void main(String args[]) {
     System.out.println("Reading from standard input...");
-    FunctionParser t = new FunctionParser(System.in, Charsets.UTF_8);
+    FunctionParser t = new FunctionParser(System.in, StandardCharsets.UTF_8.name());
     try {
       SimpleNode n = t.Start();
       n.dump("");

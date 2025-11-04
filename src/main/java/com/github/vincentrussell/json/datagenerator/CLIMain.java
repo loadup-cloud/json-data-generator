@@ -12,10 +12,10 @@ package com.github.vincentrussell.json.datagenerator;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,22 +30,10 @@ import com.github.vincentrussell.json.datagenerator.functions.FunctionRegistry;
 import com.github.vincentrussell.json.datagenerator.impl.JsonDataGeneratorImpl;
 import com.github.vincentrussell.json.datagenerator.impl.NonCloseableBufferedOutputStream;
 import com.github.vincentrussell.json.datagenerator.impl.TimeoutInputStream;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 import org.apache.commons.io.IOUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -73,30 +61,30 @@ public final class CLIMain {
         Options options = new Options();
 
         Option o = new Option("s", "sourceFile", true,
-            "the source file.");
+                "the source file.");
         o.setRequired(false);
         options.addOption(o);
 
         o = new Option("d", "destinationFile", true,
-            "the destination file.  Defaults to System.out");
+                "the destination file.  Defaults to System.out");
         o.setRequired(false);
         options.addOption(o);
 
         o = new Option("f", "functionClasses", true,
-            "additional function classes that are on the classpath "
-                + "and should be loaded");
+                "additional function classes that are on the classpath "
+                        + "and should be loaded");
         o.setRequired(false);
         o.setArgs(Option.UNLIMITED_VALUES);
         options.addOption(o);
 
 
         o = new Option("i", "interactiveMode", false,
-            "interactive mode");
+                "interactive mode");
         o.setRequired(false);
         options.addOption(o);
 
         o = new Option("t", "timeZone", true,
-            "default time zone to use when dealing with dates");
+                "default time zone to use when dealing with dates");
         o.setRequired(false);
         options.addOption(o);
 
@@ -111,21 +99,25 @@ public final class CLIMain {
 
     /**
      * main method for command line interface
+     *
      * @param args arguments for command line interface
-     * @throws IOException if there is an error reading from the input or writing to the output
+     * @throws IOException                if there is an error reading from the input or writing to the output
      * @throws JsonDataGeneratorException if there is an error running the json data converter
-     * @throws ParseException if the cli arguments cannot be parsed
-     * @throws ClassNotFoundException if the addition classes passed in with -f cannot be found
+     * @throws ParseException             if the cli arguments cannot be parsed
+     * @throws ClassNotFoundException     if the addition classes passed in with -f cannot be found
      */
     @SuppressWarnings("checkstyle:linelength")
     public static void main(final String[] args) throws IOException,
-        JsonDataGeneratorException, ParseException, ClassNotFoundException {
+            JsonDataGeneratorException, ParseException, ClassNotFoundException {
         int rc = run(args);
         System.exit(rc);
     }
 
     /**
      * Run the CLI logic and return an exit code instead of calling System.exit so tests can invoke it safely.
+     *
+     * @param args
+     * @return 0
      */
     public static int run(final String[] args) throws IOException, JsonDataGeneratorException, ParseException, ClassNotFoundException {
         try {
@@ -164,9 +156,9 @@ public final class CLIMain {
                 if (interactiveMode) {
                     System.out.println(ENTER_JSON_TEXT);
                     try (InputStream inputStream = new TimeoutInputStream(System.in,
-                        1, TimeUnit.SECONDS);
+                            1, TimeUnit.SECONDS);
                          OutputStream outputStream = new NonCloseableBufferedOutputStream(
-                             System.out)) {
+                                 System.out)) {
                         IOUtils.write("\n\n\n\n\n", outputStream, StandardCharsets.UTF_8);
                         JsonDataGenerator jsonDataGenerator = new JsonDataGeneratorImpl(functionRegistry);
                         jsonDataGenerator.generateTestDataJson(inputStream, outputStream);
@@ -200,7 +192,7 @@ public final class CLIMain {
                 try (InputStream inputStream = new FileInputStream(sourceFile);
                      OutputStream outputStream = destinationFile != null
                              ? new FileOutputStream(destinationFile)
-                         : new NonCloseableBufferedOutputStream(System.out)) {
+                             : new NonCloseableBufferedOutputStream(System.out)) {
                     jsonDataGenerator.generateTestDataJson(inputStream, outputStream);
                 }
 

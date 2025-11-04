@@ -35,6 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * {@link TokenResolver} implementation that will try to run the functions for the tockens
@@ -56,7 +57,7 @@ public class FunctionTokenResolver implements TokenResolver {
     public String resolveToken(final CharSequence s) {
         try {
             FunctionParser functionParser = new FunctionParser(
-                new ByteArrayInputStream(s.toString().getBytes(Charsets.UTF_8)), Charsets.UTF_8);
+                new ByteArrayInputStream(s.toString().getBytes(Charsets.UTF_8)),  StandardCharsets.UTF_8.name());
             functionParser.setFunctionRegistry(functionRegistry);
             return functionParser.Parse();
         } catch (Throwable e) {
