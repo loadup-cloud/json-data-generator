@@ -50,29 +50,23 @@ public class FunctionRegistryTest {
 
     @Test
     public void registerFunctionClassNotAnnotated() {
-        Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
-        });
-//        //thrownException.expectMessage(Object.class.getName() + " must be annotated with " + Function.class.getName());
-        functionRegistry.registerClass(Object.class);
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                functionRegistry.registerClass(Object.class)
+        );
     }
 
     @Test
     public void registerFunctionClassAnnotatedWithoutName() {
-          Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
-        });
-//        //thrownException.expectMessage(TestFunctionClazzWithoutName.class.getName() + " annotation must have name attribute populated");
-        functionRegistry.registerClass(TestFunctionClazzWithoutName.class);
+          Assertions.assertThrows(IllegalArgumentException.class, () ->
+                functionRegistry.registerClass(TestFunctionClazzWithoutName.class)
+        );
     }
 
     @Test
     public void registerFunctionClassAnnotatedWithoutFunctionInvocation() {
-          Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
-        });
-        //thrownException.expectMessage("could not find any public methods annotated with " + FunctionInvocation.class.getName());
-        functionRegistry.registerClass(TestFunctionClazzWithoutFunctionInvocation.class);
+          Assertions.assertThrows(IllegalArgumentException.class, () ->
+                functionRegistry.registerClass(TestFunctionClazzWithoutFunctionInvocation.class)
+        );
     }
 
     @Test
@@ -111,59 +105,47 @@ public class FunctionRegistryTest {
 
     @Test
     public void registerFunctionClassAnnotatedWithFunctionInvocationAndExecuteMethodMethodNotFound() {
-          Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
+          Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocation.class);
+            functionRegistry.getMethod("notFound", "arg1", "arg2");
         });
-        //thrownException.expectMessage("could not find method to invoke.");
-        functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocation.class);
-        functionRegistry.getMethod("notFound", "arg1", "arg2");
     }
 
     @Test
     public void registerFunctionClassAnnotatedWithFunctionInvocationWithoutNoArgConstructor() {
-          Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
-        });
-        //thrownException.expectMessage(TestFunctionClazzWithFunctionInvocationWithoutNoArgConstructor.class.getName() + " must have a no-arg constructor");
-        functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocationWithoutNoArgConstructor.class);
-    }
+          Assertions.assertThrows(IllegalArgumentException.class, () ->
+                functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocationWithoutNoArgConstructor.class)
+        );
+     }
 
 
     @Test
     public void registerFunctionClassAnnotatedWithoutFunctionInvocationArgumentsNotStrings() {
-          Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
-        });
-        //thrownException.expectMessage("method parameters need to be a String or a single String var-arg parameter");
-        functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocationNonStrings.class);
-    }
+          Assertions.assertThrows(IllegalArgumentException.class, () ->
+                functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocationNonStrings.class)
+        );
+     }
 
     @Test
     public void registerFunctionClassAnnotatedWithoutFunctionInvocationArgumentsNotStrings2() {
-          Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
-        });
-        //thrownException.expectMessage("method parameters need to be a String or a single String var-arg parameter");
-        functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocationNonStrings2.class);
-    }
+          Assertions.assertThrows(IllegalArgumentException.class, () ->
+                functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocationNonStrings2.class)
+        );
+     }
 
     @Test
     public void registerFunctionClassAnnotatedWithoutFunctionInvocationArgumentsOneNotString() {
-          Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
-        });
-        //thrownException.expectMessage("method parameters need to be a String or a single String var-arg parameter");
-        functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocationOneNotString.class);
-    }
+          Assertions.assertThrows(IllegalArgumentException.class, () ->
+                functionRegistry.registerClass(TestFunctionClazzWithFunctionInvocationOneNotString.class)
+        );
+     }
 
     @Test
     public void registerFunctionClassAnnotationThatDoestReturnString() {
-          Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
-        });
-        //thrownException.expectMessage("method invocation on class " + TestFunctionClazzMethodDoesntReturnString.class.getName() + " must return type String");
-        functionRegistry.registerClass(TestFunctionClazzMethodDoesntReturnString.class);
-    }
+          Assertions.assertThrows(IllegalArgumentException.class, () ->
+                functionRegistry.registerClass(TestFunctionClazzMethodDoesntReturnString.class)
+        );
+     }
 
     @Test
     public void registerFunctionClassAnnotatedWithFunctionMethodWithNoArgs() throws InvocationTargetException, IllegalAccessException {
@@ -174,13 +156,11 @@ public class FunctionRegistryTest {
 
     @Test
     public void nonOverridableFunction() throws InvocationTargetException, IllegalAccessException {
-          Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalArgumentException();
+          Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            functionRegistry.registerClass(TestNonOverrideableFunction1.class);
+            functionRegistry.registerClass(TestNonOverrideableFunction2.class);
         });
-        //thrownException.expectMessage(TestNonOverrideableFunction2.class.getName() + " can not override existing function with the same annotation: function1 because it does not allow overriding.");
-        functionRegistry.registerClass(TestNonOverrideableFunction1.class);
-        functionRegistry.registerClass(TestNonOverrideableFunction2.class);
-    }
+     }
 
 
     @Function

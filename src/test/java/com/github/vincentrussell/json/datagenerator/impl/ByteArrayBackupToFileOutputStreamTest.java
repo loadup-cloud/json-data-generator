@@ -351,12 +351,10 @@ public class ByteArrayBackupToFileOutputStreamTest {
 
     @Test
     public void setLengthByteArrayGreaterThanBufferSize() throws IOException {
-        try (ByteArrayBackupToFileOutputStream byteArrayBackupToFileOutputStream = new ByteArrayBackupToFileOutputStream(5, 10)) {
-            byteArrayBackupToFileOutputStream.setLength(1000);
-
-        }
-        Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalStateException();
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            try (ByteArrayBackupToFileOutputStream byteArrayBackupToFileOutputStream = new ByteArrayBackupToFileOutputStream(5, 10)) {
+                byteArrayBackupToFileOutputStream.setLength(1000);
+            }
         });
     }
 
@@ -365,17 +363,14 @@ public class ByteArrayBackupToFileOutputStreamTest {
         String testString1 = "what in the world is this?";
         byte[] bytes1 = testString1.getBytes();
 
-        try (ByteArrayBackupToFileOutputStream byteArrayBackupToFileOutputStream = new ByteArrayBackupToFileOutputStream(5, testString1.length() - 2)) {
-            for (int i = 0; i < bytes1.length; i++) {
-                byteArrayBackupToFileOutputStream.write(bytes1[i]);
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            try (ByteArrayBackupToFileOutputStream byteArrayBackupToFileOutputStream = new ByteArrayBackupToFileOutputStream(5, testString1.length() - 2)) {
+                for (int i = 0; i < bytes1.length; i++) {
+                    byteArrayBackupToFileOutputStream.write(bytes1[i]);
+                }
+
+                byteArrayBackupToFileOutputStream.setLength(1000);
             }
-
-            byteArrayBackupToFileOutputStream.setLength(1000);
-
-        }
-
-        Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IllegalStateException();
         });
     }
 
@@ -435,12 +430,10 @@ public class ByteArrayBackupToFileOutputStreamTest {
 
     @Test
     public void resetWithoutMark() throws IOException {
-        try (ByteArrayBackupToFileOutputStream byteArrayBackupToFileOutputStream = new ByteArrayBackupToFileOutputStream(5, 5)) {
-            byteArrayBackupToFileOutputStream.reset();
-        }
-
-        Assertions.assertThrows(IllegalArgumentException.class,()->{
-            throw new IOException();
+        Assertions.assertThrows(IOException.class, () -> {
+            try (ByteArrayBackupToFileOutputStream byteArrayBackupToFileOutputStream = new ByteArrayBackupToFileOutputStream(5, 5)) {
+                byteArrayBackupToFileOutputStream.reset();
+            }
         });
     }
 

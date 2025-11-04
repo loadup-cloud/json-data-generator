@@ -242,18 +242,18 @@ public class DefaultFunctionsTest {
 
     @Test
     public void resetIndexDefaultNotFound() throws InvocationTargetException, IllegalAccessException {
-        functionRegistry.executeFunction("resetIndex");
-        Assertions.assertThrows(IllegalArgumentException.class, ()->{
-            throw new ReflectiveOperationException();
-        });
+        // calling resetIndex when no index exists should throw IllegalStateException (as implementation indicates)
+        Assertions.assertThrows(InvocationTargetException.class, () ->
+                functionRegistry.executeFunction("resetIndex")
+        );
     }
 
     @Test
     public void resetIndexSpecifiedNameNotFound() throws InvocationTargetException, IllegalAccessException {
-        functionRegistry.executeFunction("resetIndex", "name1");
-        Assertions.assertThrows(IllegalArgumentException.class, ()->{
-            throw new ReflectiveOperationException();
-        });    }
+        Assertions.assertThrows(InvocationTargetException.class, () ->
+                functionRegistry.executeFunction("resetIndex", "name1")
+        );
+    }
 
     @Test
     public void resetIndex() throws InvocationTargetException, IllegalAccessException {

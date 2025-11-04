@@ -120,6 +120,14 @@ public final class CLIMain {
     @SuppressWarnings("checkstyle:linelength")
     public static void main(final String[] args) throws IOException,
         JsonDataGeneratorException, ParseException, ClassNotFoundException {
+        int rc = run(args);
+        System.exit(rc);
+    }
+
+    /**
+     * Run the CLI logic and return an exit code instead of calling System.exit so tests can invoke it safely.
+     */
+    public static int run(final String[] args) throws IOException, JsonDataGeneratorException, ParseException, ClassNotFoundException {
         try {
             TimeZone.setDefault(DEFAULT_TIMEZONE);
 
@@ -163,11 +171,11 @@ public final class CLIMain {
                         JsonDataGenerator jsonDataGenerator = new JsonDataGeneratorImpl(functionRegistry);
                         jsonDataGenerator.generateTestDataJson(inputStream, outputStream);
                     }
-                    System.exit(0);
+                    return 0;
                 } else if (pipeMode) {
                     JsonDataGenerator jsonDataGenerator = new JsonDataGeneratorImpl(functionRegistry);
                     jsonDataGenerator.generateTestDataJson(System.in, System.out);
-                    System.exit(0);
+                    return 0;
                 }
 
                 String destination = cmd.getOptionValue("d");
@@ -196,6 +204,8 @@ public final class CLIMain {
                     jsonDataGenerator.generateTestDataJson(inputStream, outputStream);
                 }
 
+                return 0;
+
             } catch (ParseException e) {
                 System.err.println(e.getMessage());
                 help.printHelp(CLIMain.class.getName(), options, true);
@@ -204,7 +214,6 @@ public final class CLIMain {
         } finally {
             TimeZone.setDefault(DEFAULT_TIMEZONE);
         }
-
     }
 
 
